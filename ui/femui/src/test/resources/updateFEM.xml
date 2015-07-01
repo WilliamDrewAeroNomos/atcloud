@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FEM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://model.atcloud.com/scenario">
+	<femID>dceec2c5-ddfd-4901-88cf-48e088ffa5e3</femID>
+	<name>FEM 1</name>
+	<scenarioID />
+	<description>Test Model 1</description>
+	<logicalStrtTimeMSecs>1390305837264</logicalStrtTimeMSecs>
+	<autoStart>true</autoStart>
+	<defDurStrtupPrtclMSecs>11000</defDurStrtupPrtclMSecs>
+	<plannedStartTimeMSecs>0</plannedStartTimeMSecs>
+	<federationExecutionMSecs>3600000</federationExecutionMSecs>
+	<joinFederationMSecs>10000</joinFederationMSecs>
+	<registerPublicationMSecs>10000</registerPublicationMSecs>
+	<registerSubscriptionMSecs>10000</registerSubscriptionMSecs>
+	<registerToRunMSecs>10000</registerToRunMSecs>
+	<waitForStartMSecs>10000</waitForStartMSecs>
+	<waitTimeAfterTermMSecs>1</waitTimeAfterTermMSecs>
+</FEM>

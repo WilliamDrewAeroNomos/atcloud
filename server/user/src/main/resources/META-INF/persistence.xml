@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+
+	<persistence-unit name="com.atcloud.model"
+		transaction-type="JTA">
+		<jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/mysqlds)
+		</jta-data-source>
+		<class>com.atcloud.model.AirFlightPosition</class>
+		<class>com.atcloud.model.Aircraft</class>
+		<class>com.atcloud.model.Airport</class>
+		<class>com.atcloud.model.AirportGroundRouteAssoc</class>
+		<class>com.atcloud.model.AirportParkingSpotAssoc</class>
+		<class>com.atcloud.model.AirportRunwayAssoc</class>
+		<class>com.atcloud.model.AirportSurfaceAreaAssoc</class>
+		<class>com.atcloud.model.AirportTaxiwayAssoc</class>
+		<class>com.atcloud.model.AirspaceConfig</class>
+		<class>com.atcloud.model.AirspaceConfigSectorAssoc</class>
+		<class>com.atcloud.model.AirwayType</class>
+		<class>com.atcloud.model.DirectedGeoSpatialLocation</class>
+		<class>com.atcloud.model.ErrorDescription</class>
+		<class>com.atcloud.model.FEM</class>
+		<class>com.atcloud.model.FEMs</class>
+		<class>com.atcloud.model.Federate</class>
+		<class>com.atcloud.model.FederateFEMAssoc</class>
+		<class>com.atcloud.model.FederateGroupAssoc</class>
+		<class>com.atcloud.model.Federates</class>
+		<class>com.atcloud.model.FlghtRteFlghtProcAssoc</class>
+		<class>com.atcloud.model.FlightPlan</class>
+		<class>com.atcloud.model.FlightPlanAircraftAssoc</class>
+		<class>com.atcloud.model.FlightPlanEvent</class>
+		<class>com.atcloud.model.FlightProcedure</class>
+		<class>com.atcloud.model.FlightRoute</class>
+		<class>com.atcloud.model.FlightRouteNavAidAssoc</class>
+		<class>com.atcloud.model.FourDSpatialLocationType</class>
+		<class>com.atcloud.model.GeoLocation</class>
+		<class>com.atcloud.model.GeoSpatialLocation</class>
+		<class>com.atcloud.model.GroundPoint</class>
+		<class>com.atcloud.model.GroundRoute</class>
+		<class>com.atcloud.model.Group</class>
+		<class>com.atcloud.model.GroupFEMAssoc</class>
+		<class>com.atcloud.model.HeartbeatConfiguration</class>
+		<class>com.atcloud.model.License</class>
+		<class>com.atcloud.model.LicenseOrgAssoc</class>
+		<class>com.atcloud.model.LicenseUsage</class>
+		<class>com.atcloud.model.MessagingConfiguration</class>
+		<class>com.atcloud.model.Name</class>
+		<class>com.atcloud.model.NavAid</class>
+		<class>com.atcloud.model.Organization</class>
+		<class>com.atcloud.model.ParkingSpot</class>
+		<class>com.atcloud.model.Participant</class>
+		<class>com.atcloud.model.Role</class>
+		<class>com.atcloud.model.Runway</class>
+		<class>com.atcloud.model.Scenario</class>
+		<class>com.atcloud.model.ScenarioConfiguration</class>
+		<class>com.atcloud.model.ScenarioFlightPlanAssoc</class>
+		<class>com.atcloud.model.Sector</class>
+		<class>com.atcloud.model.SectorGeoSpatialLocationAssoc</class>
+		<class>com.atcloud.model.Simulation</class>
+		<class>com.atcloud.model.SimulationEventType</class>
+		<class>com.atcloud.model.SimulationExecutionHandle</class>
+		<class>com.atcloud.model.SimulationMetrics</class>
+		<class>com.atcloud.model.SimulationScenarioAssoc</class>
+		<class>com.atcloud.model.SimulationSimMetricsAssoc</class>
+		<class>com.atcloud.model.SurfaceArea</class>
+		<class>com.atcloud.model.Taxiway</class>
+		<class>com.atcloud.model.USAddressType</class>
+		<class>com.atcloud.model.User</class>
+		<class>com.atcloud.model.UserFEMAssoc</class>
+		<class>com.atcloud.model.UserGroupAssoc</class>
+		<class>com.atcloud.model.UserOrgAssoc</class>
+		<class>com.atcloud.model.UserRoleAssoc</class>
+		<class>com.atcloud.model.UserSimulationAssoc</class>
+		<class>com.atcloud.model.Weather</class>
+		<class>com.atcloud.model.WeatherEvent</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+			<property name="openjpa.jdbc.DBDictionary" value="mysql" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+	<feature name='DCache' version='0.0.2-SNAPSHOT'>
+		<bundle>mvn:com.hazelcast/hazelcast/2.5.1</bundle>
+		<bundle>mvn:com.atcloud/commons/0.0.2-SNAPSHOT</bundle>
+	</feature>
+</features>

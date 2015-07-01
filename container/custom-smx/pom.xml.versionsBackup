@@ -1,0 +1,266 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>atcloud</artifactId>
+		<groupId>com.atcloud</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>custom-smx</artifactId>
+	<packaging>pom</packaging>
+
+	<name>ATCloud - Custom SMX</name>
+	<url>http://www.atcloud.com</url>
+
+	<properties>
+		<target.filter>snapshot</target.filter>
+	</properties>
+
+	<!-- Build -->
+
+	<build>
+
+		<filters>
+			<filter>src/main/filters/snapshot.properties</filter>
+		</filters>
+
+		<resources>
+			<resource>
+				<directory>src/main/filtered-resources
+				</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<outputDirectory>target/smx-cfg-resources</outputDirectory>
+					<resources>
+						<resource>
+							<directory>src/main/filtered-resources</directory>
+							<filtering>true</filtering>
+						</resource>
+					</resources>
+
+				</configuration>
+
+				<executions>
+
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+					</execution>
+
+				</executions>
+
+			</plugin>
+
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+
+				<executions>
+
+					<!-- Specific artifacts -->
+
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+
+								<!-- Custom branding -->
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>branding.shell</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.branding.shell.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+								<!-- Hazelcast -->
+
+								<artifactItem>
+									<groupId>com.hazelcast</groupId>
+									<artifactId>hazelcast</artifactId>
+									<version>${hazelcast.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+								</artifactItem>
+
+								<!-- ATCloud -->
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>commons</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.commons.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>model</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.model.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>dcache</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.dcache.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>persistence</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.persistence.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>jdbc-fragment</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.jdbc-fragment.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>user</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/project/dependencies
+									</outputDirectory>
+									<destFileName>${project.groupId}.user.${project.version}.jar
+									</destFileName>
+								</artifactItem>
+
+							</artifactItems>
+
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<prependGroupId>true</prependGroupId>
+
+						</configuration>
+					</execution>
+
+					<!-- Uncompress the targeted ServiceMix distribution -->
+
+					<execution>
+						<id>unpack</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.servicemix</groupId>
+									<artifactId>apache-servicemix</artifactId>
+									<type>${custom-smx-type}</type>
+									<outputDirectory>${project.build.directory}/dependencies
+									</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+
+				</executions>
+
+			</plugin>
+
+			<!-- Assemble the custom SMX using the bin.xml descriptor -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+
+				<executions>
+
+					<execution>
+						<id>atcloud-custom-smx</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/descriptors/bin.xml</descriptor>
+							</descriptors>
+							<appendAssemblyId>false</appendAssemblyId>
+							<tarLongFileMode>gnu</tarLongFileMode>
+							<finalName>atcloud-smx-${project.version}
+							</finalName>
+						</configuration>
+					</execution>
+
+				</executions>
+
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+
+	<!-- Dependencies -->
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.servicemix</groupId>
+			<artifactId>apache-servicemix</artifactId>
+			<type>tar.gz</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.atcloud</groupId>
+			<artifactId>branding.shell</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

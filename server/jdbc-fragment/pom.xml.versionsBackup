@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>server</artifactId>
+		<groupId>com.atcloud</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<name>ATCloud - JDBC Fragment</name>
+	<groupId>com.atcloud</groupId>
+	<artifactId>jdbc-fragment</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<build>
+		<plugins>
+
+			<!-- Construct the fragment bundle attaching to the Hibernate bundle -->
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<manifestLocation>META-INF</manifestLocation>
+						<Fragment-Host>com.hazelcast</Fragment-Host>
+						<Import-Package>
+							com.atcloud.model.data
+						</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+
+			<!-- deploy bundle to container -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>fuse-deploy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<!-- copy bundle to smx hot deploy directory -->
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+									<destFileName>${project.groupId}.${project.artifactId}.${project.version}.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${deploy.dir.location}</outputDirectory>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<failOnWarning>false</failOnWarning>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

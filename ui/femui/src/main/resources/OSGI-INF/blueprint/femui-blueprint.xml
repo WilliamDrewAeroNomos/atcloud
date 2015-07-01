@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xmlns:cxf="http://cxf.apache.org/blueprint/core" xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/blueprint/jaxws"
+	xsi:schemaLocation="
+  http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+  http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-core/src/main/resources/org/apache/aries/blueprint/ext/blueprint-ext.xsd  
+  http://cxf.apache.org/blueprint/jaxws http://cxf.apache.org/schemas/blueprint/jaxws.xsd
+  http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+  http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd
+  http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+  ">
+
+	<reference id="femServiceImpl"
+		interface="com.atcloud.fem.FederationExecutionModelService" />
+
+	<reference id="commonsService" interface="com.atcloud.commons.CommonsService" />
+	<reference id="modelService" interface="com.atcloud.model.ModelService" />
+
+	<!-- Register the FEMServlet with the FederationExecutionModelService injected -->
+
+	<bean id="addFEMServlet" class="com.atcloud.femui.AddFEMServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="addFEMServlet">
+		<service-properties>
+			<entry key="alias" value="/addFEM" />
+		</service-properties>
+	</service>
+
+	<!-- Register the FederateServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="federateServlet" class="com.atcloud.femui.AddFederateServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="federateServlet">
+		<service-properties>
+			<entry key="alias" value="/addFederate" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetFederatesInGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getFederatesInGroupServlet" class="com.atcloud.femui.GetFederatesInGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getFederatesInGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/getFederatesInGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetActiveFEMForGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getActiveFEMForGroupServlet" class="com.atcloud.femui.GetActiveFEMForGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getActiveFEMForGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/getActiveFEMForGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the AddFederateToGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="addFederateToGroupServlet" class="com.atcloud.femui.AddFederateToGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="addFederateToGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/addFederateToGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the AddFederateToFEMServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="addFederateToFEMServlet" class="com.atcloud.femui.AddFederateToFEMServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="addFederateToFEMServlet">
+		<service-properties>
+			<entry key="alias" value="/addFederateToFEM" />
+		</service-properties>
+	</service>
+
+	<!-- Register the RemoveFederateFromGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="removeFederateFromGroupServlet" class="com.atcloud.femui.RemoveFederateFromGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="removeFederateFromGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/removeFederateFromGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the AddFEMToGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="addFEMToGroupServlet" class="com.atcloud.femui.AddFEMToGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="addFEMToGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/addFEMToGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetFEMsInGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getFEMsInGroupServlet" class="com.atcloud.femui.GetFEMsInGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getFEMsInGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/getFEMsInGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetAllFEMsServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getAllFEMsServlet" class="com.atcloud.femui.GetAllFEMsServlet">
+		<property name="femService" ref="femServiceImpl" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getAllFEMsServlet">
+		<service-properties>
+			<entry key="alias" value="/getAllFEMs" />
+		</service-properties>
+	</service>
+
+	<!-- Register the RemoveFederateFromGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="removeFEMFromGroupServlet" class="com.atcloud.femui.RemoveFEMFromGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="removeFEMFromGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/removeFEMFromGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the RemoveFederateFromFEMServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="removeFederateFromFEMServlet" class="com.atcloud.femui.RemoveFederateFromFEMServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="removeFederateFromFEMServlet">
+		<service-properties>
+			<entry key="alias" value="/removeFederateFromFEM" />
+		</service-properties>
+	</service>
+
+	<!-- Register the SetActiveFEMForGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="setActiveFEMForGroupServlet" class="com.atcloud.femui.SetActiveFEMForGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="setActiveFEMForGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/setActiveFEMForGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the SetActiveFEMForGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="updateFEMServlet" class="com.atcloud.femui.UpdateFEMServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="updateFEMServlet">
+		<service-properties>
+			<entry key="alias" value="/updateFEM" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetFederatesInFEMServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getFederatesInFEMServlet" class="com.atcloud.femui.GetFederatesInFEMServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getFederatesInFEMServlet">
+		<service-properties>
+			<entry key="alias" value="/getFederatesInFEM" />
+		</service-properties>
+	</service>
+
+	<!-- Register the RemoveActiveFEMForGroupServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="removeActiveFEMForGroupServlet" class="com.atcloud.femui.RemoveActiveFEMForGroupServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="removeActiveFEMForGroupServlet">
+		<service-properties>
+			<entry key="alias" value="/removeActiveFEMForGroup" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetAllFederatesServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getAllFederatesServlet" class="com.atcloud.femui.GetAllFederatesServlet">
+		<property name="femService" ref="femServiceImpl" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getAllFederatesServlet">
+		<service-properties>
+			<entry key="alias" value="/getAllFederates" />
+		</service-properties>
+	</service>
+
+	<!-- Register the GetFEMByNameServlet with the FederationExecutionModelService 
+		injected -->
+
+	<bean id="getFEMByNameServlet" class="com.atcloud.femui.GetFEMByNameServlet">
+		<property name="femService" ref="femServiceImpl" />
+		<property name="commonsService" ref="commonsService" />
+	</bean>
+
+	<service interface="javax.servlet.http.HttpServlet" ref="getFEMByNameServlet">
+		<service-properties>
+			<entry key="alias" value="/getFEMByName" />
+		</service-properties>
+	</service>
+
+</blueprint>

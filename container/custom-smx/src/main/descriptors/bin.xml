@@ -1,0 +1,158 @@
+<assembly>
+
+	<id>atcloud-custom-smx</id>
+
+	<formats>
+		<format>tar.gz</format>
+		<format>tar</format>
+		<format>zip</format>
+	</formats>
+
+	<fileSets>
+
+		<!-- Expanded ServiceMix Standard Distribution -->
+		<fileSet>
+			<directory>target/dependencies/apache-servicemix-4.5.1</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>**/demos/**</exclude>
+				<exclude>bin/**</exclude>
+				<exclude>**/data/**</exclude>
+				<!-- <exclude>etc/system.properties</exclude> -->
+				<!-- <exclude>etc/users.properties</exclude> -->
+				<exclude>etc/org.apache.karaf.features.cfg</exclude>
+				<exclude>etc/org.apache.karaf.features.repos.cfg</exclude>
+				<exclude>etc/org.ops4j.pax.logging.cfg</exclude>
+				<exclude>etc/org.ops4j.pax.url.mvn.cfg</exclude>
+				<exclude>LICENSE</exclude>
+				<exclude>NOTICE</exclude>
+				<exclude>README</exclude>
+				<exclude>RELEASE-NOTES</exclude>
+				<exclude>karaf-manual*.html</exclude>
+				<exclude>karaf-manual*.pdf</exclude>
+			</excludes>
+			<includes>
+				<include>**/lib/**</include>
+				<include>**/system/**</include>
+			</includes>
+		</fileSet>
+
+		<!-- Copy over bin/* separately to get the correct file mode -->
+		<fileSet>
+			<directory>target/dependencies/apache-servicemix-4.5.1</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/admin*</include>
+				<include>bin/client*</include>
+				<include>bin/karaf*</include>
+				<include>bin/setenv*</include>
+				<include>bin/shell*</include>
+				<include>bin/start*</include>
+				<include>bin/stop*</include>
+			</includes>
+			<excludes>
+				<exclude>bin/servicemix*</exclude>
+			</excludes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
+		<!-- Copy over the customized servicemix -->
+		<fileSet>
+			<directory>src/main/distribution</directory>
+			<outputDirectory>/bin</outputDirectory>
+			<includes>
+				<include>servicemix*</include>
+			</includes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
+		<!-- Copy over any required jars that are run-time dependencies. Exclude 
+			branding jar as it goes in /lib -->
+		<fileSet>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+			<excludes>
+				<exclude>com.atcloud.branding.shell-${project.version}.jar
+				</exclude>
+			</excludes>
+			<outputDirectory>/deploy</outputDirectory>
+		</fileSet>
+
+		<!-- Copy over custom branding jar file to /lib -->
+		<fileSet>
+			<directory>target/project/dependencies</directory>
+			<includes>
+				<include>com.atcloud.branding.shell-${project.version}.jar
+				</include>
+			</includes>
+			<outputDirectory>/lib/</outputDirectory>
+		</fileSet>
+
+		<!-- Copy over project dependencies to /deploy excluding custom branding -->
+		<fileSet>
+			<directory>target/project/dependencies</directory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+			<excludes>
+				<exclude>*.tar.gz</exclude>
+				<exclude>junit*.jar</exclude>
+				<exclude>slfj*.jar</exclude>
+				<exclude>*.org.apache.commons*.jar</exclude>
+				<exclude>com.atcloud.branding.shell-${project.version}.jar
+				</exclude>
+			</excludes>
+			<outputDirectory>/deploy</outputDirectory>
+			<fileMode>0644</fileMode>
+		</fileSet>
+
+		<!-- Copy over all configuration to /etc except features.xml and datasource 
+			configurations -->
+		<fileSet>
+			<directory>target/smx-cfg-resources</directory>
+			<outputDirectory>/etc</outputDirectory>
+			<includes>
+				<include>*.cfg</include>
+				<include>*.xml</include>
+				<include>*.properties</include>
+				<include>*.script</include>
+				<include>*.stub</include>
+			</includes>
+			<excludes>
+				<exclude>features.xml</exclude>
+				<exclude>datasource-*.xml</exclude>
+				<exclude>test-broker.xml</exclude>
+			</excludes>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+
+		<!-- Copy over features.xml and datasource configurations to deploy directory -->
+		<fileSet>
+			<directory>target/smx-cfg-resources</directory>
+			<outputDirectory>/deploy</outputDirectory>
+			<includes>
+				<include>features.xml</include>
+				<include>datasource-*.xml</include>
+				<include>test-broker.xml</include>
+				<include>muthur.federation.execution.model.xml</include>
+			</includes>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+
+		<!-- Copy over kar files to deploy directory -->
+		<fileSet>
+			<directory>target</directory>
+			<outputDirectory>/deploy</outputDirectory>
+			<includes>
+				<include>*.kar</include>
+			</includes>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+
+	</fileSets>
+
+</assembly>

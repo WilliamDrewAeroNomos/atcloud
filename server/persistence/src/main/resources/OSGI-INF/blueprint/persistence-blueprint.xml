@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint default-activation="eager"
+	xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0" xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
+
+	<reference id="modelService" interface="com.atcloud.model.ModelService" />
+
+	<bean id="persistenceService" class="com.atcloud.persistence.internal.PersistenceServiceImpl"
+		init-method="start" destroy-method="stop">
+		<jpa:context unitname="com.atcloud.model" property="entityManager" />
+		<tx:transaction method="*" value="Required" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<service ref="persistenceService" interface="com.atcloud.persistence.PersistenceService" />
+
+</blueprint>
